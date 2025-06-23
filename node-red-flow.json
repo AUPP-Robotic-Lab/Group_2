@@ -1,0 +1,166 @@
+[
+    {
+        "id": "3ec0a5945787c010",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "86dd789af68cbe0b",
+        "type": "mqtt in",
+        "z": "3ec0a5945787c010",
+        "name": "",
+        "topic": "sensor/bmp280",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "4d27d5a8082beb21",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "cc3ae20190a6ae7f",
+                "bd19b45595439693"
+            ]
+        ]
+    },
+    {
+        "id": "8ae95b0a2b925ea9",
+        "type": "influxdb out",
+        "z": "3ec0a5945787c010",
+        "influxdb": "84ba5783edf9f506",
+        "name": "",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 700,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a3a5ef14ba012a2a",
+        "type": "function",
+        "z": "3ec0a5945787c010",
+        "name": "function 1",
+        "func": "msg.measurement = \"weather2\";\nmsg.payload = {\n    temperature: msg.payload.temperature,\n    pressure: msg.payload.pressure,\n    altitude: msg.payload.altitude\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "8ae95b0a2b925ea9",
+                "be2dd6c03871a4a8"
+            ]
+        ]
+    },
+    {
+        "id": "be2dd6c03871a4a8",
+        "type": "debug",
+        "z": "3ec0a5945787c010",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "cc3ae20190a6ae7f",
+        "type": "debug",
+        "z": "3ec0a5945787c010",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bd19b45595439693",
+        "type": "json",
+        "z": "3ec0a5945787c010",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "a3a5ef14ba012a2a"
+            ]
+        ]
+    },
+    {
+        "id": "4d27d5a8082beb21",
+        "type": "mqtt-broker",
+        "name": "MQTT Broker",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "84ba5783edf9f506",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "iot_data",
+        "name": "iot",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    }
+]
