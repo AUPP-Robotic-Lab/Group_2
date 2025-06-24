@@ -55,10 +55,12 @@ void loop() {
 
   float temperature = bmp.readTemperature();
   float pressure = bmp.readPressure(); // hPa
+  float altitude = bmp.readAltitude(); 
 
   String payload = "{\"temperature\": " + String(temperature, 2) +
-                   ", \"pressure\": " + String(pressure, 2) + "}";
-
+                   ", \"pressure\": " + String(pressure, 2) + 
+                   ", \"altitude\": " + String(altitude, 2) + "}";
+  
   client.publish("sensor/bmp280", payload.c_str());
   Serial.println("Published: " + payload);
 
