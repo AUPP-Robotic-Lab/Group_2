@@ -50,21 +50,59 @@
   *To set up Node-RED:
   1. Go to: https://nodered.org
   2. Click get started -> run locally -> getting started -> running locally
-  3. The website then provides you with detailed information on how to download and set it up on your local device properly.
-
-  ***Optional but recommended***: Use pm2 to run Node-RED
-  4. On cmd prompt, type: "npm install pm2 -g"
-  5. Type: "pm2 start cmd --name nodered -- /c "node-red"
-  (Why use PM2? -> PM2 can automatically restart your application if it crashes and automatically reload your application when you update your code. PM2 enables easy monitoring and works like a health tracker for your node app. It shows memory usage states and more in a centralized dashboard. PM2 allows you to manage multiple Node.)
-
-  6. The command will execute, and you will have to click on the link that says "Server now running at... " 
-  7. To stop running the command, just type "pm2 kill" and then it should end.
+  3. The website then provides you with detailed information on how to download and set it up on your local device properly
+  4. The command will execute, and you will have to click on the link that says "Server now running at... " 
 
   *To set up InfluxDB:
   1. Go to: https://www.influxdata.com/downloads/
   2. Scroll and find InfluxDB OSS 1.x
   3. Change 'Platform' settings to fit your own needs
 
+### 2. Grafana
+*Grafana Dashboard
+Includes the following:
+
+- Real-time line charts for:
+
+1. Temperature (°C)
+
+2. Pressure (hPa)
+
+3. Altitude (m)
+
+- Thresholds: e.g., show red if temperature > 30°C
+
+- Annotations: automatic highlights when threshold exceeded
+
+- Alerts: sent to Telegram when condition is met
+
+-> Data source: InfluxDB (configured with InfluxQL)
+
+*Telegram Alerting
+Flow detects when temperature > 30°C and sends a custom Telegram message:
+
+Example:
+“⚠️ High Temp: 32.27 °C”
+
+You must:
+- Create a Telegram bot via @BotFather
+- Obtain your bot token and chat ID
+- Configure the HTTP node or use a Telegram output node in Node-RED
+
+**How to Run
+-Flash ESP32 with the Arduino sketch
+
+-Start Mosquitto MQTT broker (or use public one)
+
+-Import Node-RED flow and deploy
+
+-Start InfluxDB and create database "iot_data"
+
+-Run Grafana, configure InfluxDB as a data source
+
+-Import or build panels in Grafana
+
+Watch real-time updates, configure alerts and thresholds
 ...
   
 
