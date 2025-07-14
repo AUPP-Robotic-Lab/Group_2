@@ -57,6 +57,14 @@
   1. Go to: https://www.influxdata.com/downloads/
   2. Scroll and find InfluxDB OSS 1.x
   3. Change 'Platform' settings to fit your own needs
+  4. Installed InfluxDB locally
+  5. Connected Node-RED → InfluxDB using influxdb-out node
+  6. Converted incoming JSON into Influx Line Protocol using function node
+  7. Verified sensor data is stored correctly using InfluxDB CLI
+<img width="1280" height="657" alt="image" src="https://github.com/user-attachments/assets/dc1dac40-1683-44f1-93d6-851e922f7164" />
+
+📂 Measurement: weather2
+📈 Fields: temperature, pressure, altitude
 
 ### 2. Grafana
 *Grafana Dashboard
@@ -70,13 +78,16 @@ Includes the following:
 
 3. Altitude (m)
 
+<img width="940" height="665" alt="image" src="https://github.com/user-attachments/assets/37e87e8d-9394-45e7-8f20-f8b91e027d06" />
+<img width="913" height="670" alt="image" src="https://github.com/user-attachments/assets/ccf1cf24-7cc7-489e-a84a-6b5b3711b807" />
+
 - Thresholds: e.g., show red if temperature > 30°C
 
 - Annotations: automatic highlights when threshold exceeded
 
 - Alerts: sent to Telegram when condition is met
 
--> Data source: InfluxDB (configured with InfluxQL)
+-> Data source: *InfluxDB (configured with InfluxQL)*
 
 *Telegram Alerting
 Flow detects when temperature > 30°C and sends a custom Telegram message:
