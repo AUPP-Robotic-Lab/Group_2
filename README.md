@@ -83,6 +83,8 @@ Flow detects when temperature > 30°C and sends a custom Telegram message:
 
 Example:
 “⚠️ High Temp: 32.27 °C”
+<img width="1280" height="938" alt="image" src="https://github.com/user-attachments/assets/5e92d682-59c4-4785-ab51-b50d7f3c7719" />
+
 
 You must:
 - Create a Telegram bot via @BotFather
