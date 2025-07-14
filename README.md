@@ -63,8 +63,8 @@
   7. Verified sensor data is stored correctly using InfluxDB CLI
 <img width="1280" height="657" alt="image" src="https://github.com/user-attachments/assets/dc1dac40-1683-44f1-93d6-851e922f7164" />
 
-📂 Measurement: weather2
-📈 Fields: temperature, pressure, altitude
+- Measurement: weather2
+- Fields: temperature, pressure, altitude
 
 ### 2. Grafana
 *Grafana Dashboard
