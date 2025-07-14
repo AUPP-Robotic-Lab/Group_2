@@ -66,57 +66,58 @@
 - Measurement: weather2
 - Fields: temperature, pressure, altitude
 
-### 2. Grafana
-*Grafana Dashboard
-Includes the following:
+### 2. Build a flow: MQTT IN -> JSON -> Function -> InfluxDB OUT
+  *Building a flow on NODERED:
+<img width="1280" height="604" alt="BuildAFlow-nodered" src="https://github.com/user-attachments/assets/1af813f3-cea3-4e2d-a421-353905d8b1ef" />
 
-- Real-time line charts for:
+### 3. Format Data for Influx Line Protocol
+  To format the data, you can just simply edit the function node, as shown in the picture:
+  <img width="1280" height="604" alt="nodered" src="https://github.com/user-attachments/assets/c64460ae-b13e-48cc-8ec7-77b83ed6a282" />
 
-1. Temperature (°C)
+### 4. Verify Data appears in InfluxDB
+  <img width="1280" height="657" alt="InfluxDB" src="https://github.com/user-attachments/assets/8a5ff7dc-5704-4b4a-a1d0-b607763f1527" />
 
-2. Pressure (hPa)
 
-3. Altitude (m)
+---------------------------------------------------
+
+### Grafana Dashboard
+  *Set up Grafana:
+  Download from: https://grafana.com/grafana/download
+  
+  *Connect Grafana to InfluxDB:
+  Add InfluxDB as a data source -> Use InfluxQL and point to the iotdata database
+
+  *Configure dashboard panels for:
+    - Temperature (°C)
+    - Pressure (hPa)
+    - Altitude (m)
 
 <img width="940" height="665" alt="image" src="https://github.com/user-attachments/assets/37e87e8d-9394-45e7-8f20-f8b91e027d06" />
 <img width="913" height="670" alt="image" src="https://github.com/user-attachments/assets/ccf1cf24-7cc7-489e-a84a-6b5b3711b807" />
 
-- Thresholds: e.g., show red if temperature > 30°C
+  *Add Alerts and Notifications
+  - Threshold: e.g., show red if temperature > 30°C
+  - Annotations: automatically highlight threshold breaches
+    
+  + Alerts: use Node-RED to send Telegram messages if conditions are met:
+    
+  *Telegram Alerting
+  Flow detects when temperature > 30°C and sends a custom Telegram message:
+  Example:
+  “⚠️ High Temp: 32.27 °C”
+  <img width="1280" height="938" alt="image" src="https://github.com/user-attachments/assets/5e92d682-59c4-4785-ab51-b50d7f3c7719" />
 
-- Annotations: automatic highlights when threshold exceeded
+  To do this, you must:
+  - Create a Telegram bot via @BotFather
+  - Obtain your bot token and chat ID
+  - Configure the HTTP node or use a Telegram output node in Node-RED
 
-- Alerts: sent to Telegram when condition is met
+  *How to Run:
+  - Flash ESP32 with the Arduino sketch
+  - Start Mosquitto MQTT broker (or use public one)
+  - Import Node-RED flow and deploy
+  - Start InfluxDB and create database "iot_data"
+  - Run Grafana, configure InfluxDB as a data source
+  - Import or build panels in Grafana
 
--> Data source: *InfluxDB (configured with InfluxQL)*
-
-*Telegram Alerting
-Flow detects when temperature > 30°C and sends a custom Telegram message:
-
-Example:
-“⚠️ High Temp: 32.27 °C”
-<img width="1280" height="938" alt="image" src="https://github.com/user-attachments/assets/5e92d682-59c4-4785-ab51-b50d7f3c7719" />
-
-
-You must:
-- Create a Telegram bot via @BotFather
-- Obtain your bot token and chat ID
-- Configure the HTTP node or use a Telegram output node in Node-RED
-
-**How to Run
--Flash ESP32 with the Arduino sketch
-
--Start Mosquitto MQTT broker (or use public one)
-
--Import Node-RED flow and deploy
-
--Start InfluxDB and create database "iot_data"
-
--Run Grafana, configure InfluxDB as a data source
-
--Import or build panels in Grafana
-
-Watch real-time updates, configure alerts and thresholds
-...
-  
-
-
+Now, you can watch real-time updates, configure alerts and thresholds!
